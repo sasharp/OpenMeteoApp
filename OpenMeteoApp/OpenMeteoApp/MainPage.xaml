@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:OpenMeteoApp.Converters;assembly=OpenMeteoApp"
+             x:Class="OpenMeteoApp.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WeatherCodeConverter x:Key="WeatherCodeCvt" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Entry x:Name="search" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Search" Clicked="SearchButton_ClickedAsync"/>
+            <Button Text="Detect" Clicked="DetectButton_ClickedAsync"/>
+         </StackLayout>
+        <Label Text="{Binding Location.Name}" FontSize="Large" HorizontalOptions="Center"/>
+        <!--<StackLayout>
+            <Label Text="Today" FontSize="Large" HorizontalOptions="Center"/>
+            <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                <Label FontSize="Medium" Text="{Binding Weather.CurrentWeather.Temperature}"/>
+                <Label FontSize="Medium" Text="{Binding Weather.HourlyUnits.Temperature2M}"/>
+            </StackLayout>
+            <Label FontSize="Small" Text="{Binding Weather.CurrentWeather.Weathercode, Converter={StaticResource WeatherCodeCvt}}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Small" Text="Wind speed: "/>
+                <Label FontSize="Small" Text="{Binding Weather.CurrentWeather.Windspeed}"/>
+                <Label FontSize="Small" Text="km/h"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="Small" Text="Wind direction: "/>
+                <Label FontSize="Small" Text="{Binding Weather.CurrentWeather.Winddirection}"/>
+                <Label FontSize="Small" Text="°"/>
+            </StackLayout>-->
+            <CarouselView ItemsSource="{Binding Hours}" CurrentItem="{Binding CurrentHour}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame HasShadow="True"
+                       BorderColor="DarkGray"
+                       CornerRadius="5"
+                       Margin="20"
+                       HeightRequest="300"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand">
+                                <StackLayout>
+                                    <Label Text="{Binding Time}" FontSize="Medium" HorizontalOptions="Center"/>
+                                    <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                                        <Label FontSize="Large" Text="{Binding Temperature}"/>
+                                        <Label FontSize="Large" Text="°C"/>
+                                    </StackLayout>
+                                    <Label FontSize="Small" VerticalOptions="CenterAndExpand" Text="{Binding Weathercode, Converter={StaticResource WeatherCodeCvt}}"/>
+                                    <StackLayout VerticalOptions="End" Orientation="Horizontal">
+                                        <Label FontSize="Small" Text="Wind speed: "/>
+                                        <Label FontSize="Small" Text="{Binding Windspeed}"/>
+                                        <Label FontSize="Small" Text="km/h"/>
+                                    </StackLayout>
+                                    <StackLayout VerticalOptions="End" Orientation="Horizontal">
+                                        <Label FontSize="Small" Text="Wind direction: "/>
+                                        <Label FontSize="Small" Text="{Binding Winddirection}"/>
+                                        <Label FontSize="Small" Text="°"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        <!--</StackLayout>-->
+    </StackLayout>
+</ContentPage>
